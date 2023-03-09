@@ -50,13 +50,13 @@ button:hover{
     background-color: var(--cor-secundaria);
 }
 
-button::before{
+/* button::before{
     content: url(img/Vector.svg);
     display: inline-block;
     vertical-align: middle;
     margin-right: 4px;
 
-}
+} */
 
 label{
     color: white;

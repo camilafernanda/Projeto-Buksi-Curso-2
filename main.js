@@ -13,12 +13,14 @@ function adicionarLivro(event) {
     // Puxando informações de entrada do formulário
     let tituloLivro = document.querySelector("#nome_livro").value;
     let autorLivro = document.querySelector("#autores_livro").value;
+    let capaLivro = document.querySelector("#imagem_livro").value;
     let paginasLidas = document.querySelector("#paginas_lidas").value;
     let totalPaginas = document.querySelector("#total_paginas").value;
 
     let livroCompleto = {
-        titulo: tituloLivro, 
+        titulo : tituloLivro, 
         autor: autorLivro,
+        capa: capaLivro,
         paginasLidas: paginasLidas,
         totalPaginas: totalPaginas
     }
@@ -31,6 +33,7 @@ function adicionarLivro(event) {
     let percentualPaginas = calculoPercentualLeitura(paginasLidas, totalPaginas);
     
     imprimirNaTela(paginasLidas, paginasFaltantes, percentualPaginas);
+    imprimirLivroNaTela(livroCompleto);
 }
 
 
@@ -54,4 +57,32 @@ function imprimirNaTela(paginasLidas, paginasFaltantes, percentualPaginas) {
     // Parágrafo de porcentagem de páginas para meta
     let elementoPorcentagemPaginas = document.querySelector("#elemento_porcentagem_paginas");
     elementoPorcentagemPaginas.innerHTML = percentualPaginas.toFixed(2) + "%";
+}
+
+function imprimirLivroNaTela(livroCompleto) {
+    let elementoListaLendo = document.querySelector("#lista_livros_nao_lidos");
+    let elementoArticle = document.createElement("article");
+    elementoListaLendo.appendChild(elementoArticle);
+    elementoArticle.className = "livro";
+
+    let elementoImagem = document.createElement("img");
+    elementoImagem.src = livroCompleto.capa;
+    elementoArticle.appendChild(elementoImagem);
+
+    let elementoTituloLivro = document.createElement("h1");
+    elementoTituloLivro.innerText = livroCompleto.titulo;
+    elementoArticle.appendChild(elementoTituloLivro);
+
+    let elementoAutorLivro = document.createElement("p");
+    elementoAutorLivro.innerText = livroCompleto.autor;
+    elementoArticle.appendChild(elementoAutorLivro);
+
+    let elementoProgressoLeitura = document.createElement("input");
+    elementoProgressoLeitura.type = "range";
+    elementoArticle.appendChild(elementoProgressoLeitura);
+
+    let elementoBotaoDelete = document.createElement("button");
+    elementoBotaoDelete.innerText = "X Deletar o livro";
+    elementoArticle.appendChild(elementoBotaoDelete);
+    elementoBotaoDelete.className = "botao-simples-texto";
 }
