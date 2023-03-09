@@ -17,12 +17,15 @@ function adicionarLivro(event) {
     let paginasLidas = document.querySelector("#paginas_lidas").value;
     let totalPaginas = document.querySelector("#total_paginas").value;
 
+    let lido = livroFoiLido(paginasLidas, totalPaginas);
+
     let livroCompleto = {
         titulo : tituloLivro, 
         autor: autorLivro,
         capa: capaLivro,
         paginasLidas: paginasLidas,
-        totalPaginas: totalPaginas
+        totalPaginas: totalPaginas,
+        lido: lido
     }
 
     livros.push(livroCompleto);
@@ -60,10 +63,17 @@ function imprimirNaTela(paginasLidas, paginasFaltantes, percentualPaginas) {
 }
 
 function imprimirLivroNaTela(livroCompleto) {
-    let elementoListaLendo = document.querySelector("#lista_livros_nao_lidos");
+
     let elementoArticle = document.createElement("article");
-    elementoListaLendo.appendChild(elementoArticle);
     elementoArticle.className = "livro";
+
+    if (livroCompleto.lido == true) {
+        let elementoListaLido = document.querySelector("#lista_livros_lidos");
+        elementoListaLido.appendChild(elementoArticle);
+    } else {
+        let elementoListaLendo = document.querySelector("#lista_livros_nao_lidos");
+        elementoListaLendo.appendChild(elementoArticle);
+    }
 
     let elementoImagem = document.createElement("img");
     elementoImagem.src = livroCompleto.capa;
@@ -85,4 +95,15 @@ function imprimirLivroNaTela(livroCompleto) {
     elementoBotaoDelete.innerText = "X Deletar o livro";
     elementoArticle.appendChild(elementoBotaoDelete);
     elementoBotaoDelete.className = "botao-simples-texto";
+}
+
+function livroFoiLido(paginasLidas, totalPaginas) {
+    if (paginasLidas == totalPaginas) {
+        console.log("Livro foi lido!");
+        return true;
+    }
+    else {
+        console.log("livro não foi lido!");
+        return false;
+    }
 }
